@@ -1,0 +1,56 @@
+# Constants File FHN model
+unames = {1:'U', 2:'V'}
+parnames = {1:'a', 2:'epsilon'}
+NDIM = 2,   IPS = 4, IRS = 0, ILP = 1
+ICP  = [2]
+NTST = 800, NCOL = 4, IAD = 3, ISP = 0, ISW = 0, IPLT = 0, NBC = 2, NINT = 0
+NMX = 500, RL0 = -100.0, RL1 = 100.0, A0 = -1000.0, A1 = 1000.0  
+NPR = 500, MXBF =  10, IID = 2, ITMX = 24, ITNW = 15, NWTN = 9, JAC = 0
+EPSL = 1e-07, EPSU = 1e-07, EPSS = 1e-05
+DS =  0.00001, DSMIN = 0.00000001, DSMAX = 0.001, IADS = 1
+THL =  {11: 0.0} , THU =  {}
+
+
+# Important things to know:
+###########################################
+# NDIM = number of dimensions = number of 1st order ODEs
+# IPS  = Defines the problem type: 2=periodic, 4= boundary value prob.; read page 104 of the documentation
+# IRS  = Start solution label. 0=analytical initial conditions
+# ILP  = Fold detection; 1=on, 0=off
+###########################################
+# ICP  = Continuation Parameters. List all parameters p_i: [p1, p2, etc]
+###########################################
+# NTST = Number of mesh intervals. Time (space) axis is divided in NTST segments
+# NCOL = Number of collocation points. Leave it equal 4. Read more: page 94 of the documentation
+# IAD  = Leave it as it is (=3). Read more: page 96 of the documentation
+# ISP  = Bifurcation detection. 2=all
+# ISW  = Branch switching. 1=normal. Read more: page 102 of the documentation
+# IPLT = Select Principal Solution Measure. 0=L2 Norm. Read more: page 107 of the documentation
+# NBC  = Number of Boundary Conditions
+# NINT = Number of Integral Conditions
+###########################################
+# NMX  = Maximum number of steps (regarding the continuation parameter)
+# RL0,RL1  = Parameter Interval: RL0 < cont. parameter < RL1
+# A0,A1    = Interval of principal solution measure: A0 < |.| < A1
+###########################################
+# NPR  = Print and save data every NPR steps
+# MXBF = Leave it as it is (=10). Important when IPS=0,1.
+# IID  = Control diagnostic output: 1=little, 2=normal, 4=extensive.
+# ITMX = Maximum number of iterations for locating special solution/points
+# NWTN = Corrector uses full newton for NWTN steps
+# JAC  = User defines derivatives; 0=no, 1=yes
+###########################################
+# EPSL = Convergence criterion for equation parameters
+# EPSU = Convergence criterion for solution components
+# EPSS = Convergence criterion for special solutions/points
+###########################################
+# DS   = Start step size
+# DSMIN, DSMAX = Step size interval:  DSMIN <= h <= DSMAX
+# IADS = Step size adaptation every IADS steps; 0=off 
+###########################################
+# UZR  = list of values for user defined output.
+# Example: UZR =  {2: [1.0, 2.0, 3.0], 11: [10.0, 50.0, 100.0], -11: 200}
+# Saves data for values of par[2]: [1.0, 2.0, 3.0] and for values of par[11]: [10.0, 50.0, 100.0]. Stops (minus sign) when par[11]=200
+# STOP = Another way to stop: UZR =  {1: [1.1, 1.5, 1.55]}, STOP = ['UZ3'] --> stops at the third value of UZR
+###########################################
+#Comments by Yair Mau

@@ -1,0 +1,45 @@
+#===============
+# AUTO FHN
+#===============
+
+t1 = run(e='FHN',c='FHN',NMX=5000,NPR=50000,DSMAX=0.0025,IPS=1,ISP=2,DS=0.000133,IPLT=5)
+t2 = run(e='FHN',c='FHN',NMX=5000,NPR=50000,DSMAX=0.0025,IPS=1,ISP=2,DS=-0.000133,IPLT=5)
+t2 = run(e='FHN0',c='FHN',NMX=5000,NPR=50000,DSMAX=0.1,IPS=1,ISP=2,IPLT=5)
+plot(t1+t2)
+
+
+save(t2,'dum')
+
+
+hpf = run(e='FHN',c='FHN',s='dum',IRS=4,NMX=10,NPR=50,DSMAX=0.02,IPS=2,ICP=[2])
+
+mp0 = run(e='FHN',c='FHN',NMX=200,NPR=50,DSMAX=0.05,IPLT=5)
+snn = run(e='FHN',c='FHN',NMX=20,NPR=50,DSMAX=0.02)
+
+sn = run(e='FHN',c='FHN',NMX=2500,NPR=100,DSMAX=0.003,dat='FHN_lp05_try',IPLT=5)
+
+
+sn2 = run(e='FHN',c='FHN',NMX=5000,NPR=2000,DSMAX=0.02,dat='FHN_lp05_try')
+save(sn2,'sntry')
+
+mpx3 = run(e='FHN',c='FHN',NMX=200,NPR=50,DSMAX=0.02,IPLT=5,DS=-0.001)
+
+snx = run(e='FHN',c='FHN',NMX=100,NPR=100,DSMAX=0.1,dat='sinus',DS=-0.001) 
+mp = run(e='FHN',c='FHN',NMX=200,NPR=100,DSMAX=0.05,IPLT=5,DS=0.01)
+
+
+
+
+dif1 = run(e='FHN',c='FHN',NMX=50,NPR=10,DSMAX=0.1,s='sntry',IRS=8,DS=0.1,ICP=8,IPLT=1) 
+plot(dif1)
+save(dif1,'dif')
+snx1 = run(e='FHN',c='FHN',NMX=300,NPR=100,DSMAX=0.01,s='dif',IRS=41,IPLT=5) 
+snx2 = run(e='FHN',c='FHN',NMX=300,NPR=100,DSMAX=0.01,s='dif',IRS=44,IPLT=5) 
+
+
+pp1 = run(e='FHN',c='FHN',NMX=50,NPR=50,DSMAX=0.05,IPLT=5,dat='zeros',DS=0.001)
+pp2 = run(e='FHN',c='FHN',NMX=50,NPR=50,DSMAX=0.05,IPLT=5,dat='zeros',DS=-0.001)
+mp = run(e='FHN',c='FHN',NMX=200,NPR=50,DSMAX=0.05,IPLT=5)
+plot(pp1+pp2+mp)
+
+
