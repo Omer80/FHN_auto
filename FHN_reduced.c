@@ -20,6 +20,7 @@ int func (integer ndim, const doublereal *u, const integer *icp,
   /* Local variables */
   doublereal U,V,Ux,Vx, X;
   doublereal a,eps,del;
+  doublereal dummy_u,dummy_v;
   doublereal pi, num_periods,L;
   pi = atan(1.) * 4.0;  
   /* Defining the parameters */
@@ -27,6 +28,9 @@ int func (integer ndim, const doublereal *u, const integer *icp,
   a    = par[1+F2C];
   eps  = par[2+F2C];
   del  = par[3+F2C];
+  
+  dummy_u = par[13+F2C];
+  dummy_v = par[14+F2C];
 
   num_periods = par[17+F2C];
   L       = par[18+F2C];
@@ -46,8 +50,8 @@ int func (integer ndim, const doublereal *u, const integer *icp,
   // d/dx_auto = L * d/dx_real
   f[0] = L * Ux;
   f[1] = L * Vx;
-  f[2] = L * ( - U + U*U*U + V)/1 ;
-  f[3] = L * (1/del)*( -eps*( U - a*V )) ;
+  f[2] = L * (((-1.0)*U) + (U*U*U) + V) + dummy_u*Ux;
+  f[3] = L * (1/del)*( ((-1.0)*eps)*( U - a*V )) + (dummy_v + dummy_u)*Vx;
 
   return 0;
 }
@@ -59,22 +63,29 @@ int stpnt (integer ndim, doublereal x,
   /* local variables */
   doublereal U,V,Ux,Vx, X;
   doublereal a,eps,del;
+  doublereal dummy_u,dummy_v;
   doublereal L, amp, pi, num_periods, dm, dp,offset,tet,batch,tat;
   /*  defining the numerical value of the parameters */
 
   a   = 0.500;//-0.02;//0.00586;//0;//0.0 (for mp)
-  eps  = 3.2;  //3.2
+  eps  = 3.0;  //3.2
   del  = 7.5;  //7.5
-  
+  // With delta = 7.5 and a = 0.5 we have eps_(T) = 2.57324  (eps_T = delta / ((2-a) + 2*sqrt(1-a))
   pi = atan(1.) * 4.0;  
   num_periods = 26;
   L       = 320;
+  
+  dummy_u = (doublereal).00000000000000002;
+  dummy_v = (doublereal).00000000000000003;
 
   /* load into internal parameters */
 
   par[1+F2C] = a;
   par[2+F2C] = eps;
   par[3+F2C] = del;
+  
+  dummy_u = par[13+F2C];
+  dummy_v = par[14+F2C];
 
   par[17+F2C] = num_periods;
   par[18+F2C] = L;

@@ -1,0 +1,9 @@
+#===============
+# AUTO FHN
+#===============
+
+t1 = run(e='FHN_reduced',c='FHN',NMX=5000,NPR=50000,DSMAX=0.0025,IPS=1,ISP=2,DS=0.000133,IPLT=5)
+t2 = run(e='FHN_reduced',c='FHN',NMX=5000,NPR=50000,DSMAX=0.0025,IPS=1,ISP=2,DS=-0.000133,IPLT=5)
+t3 = run(t2("HB1"),IPS=2, ISP=1,ICP=["epsilon",13,11],NPR=100,IPLT=0,NMX=1000,DSMAX=0.1)
+plot(t1+t2+t3)
+wait()
